@@ -12,13 +12,13 @@ class ShopOptions extends React.Component {
     sortAsc = (e) => {
         const{sortingModeUpdate} = this.props;
         e.preventDefault();
-        sortingModeUpdate(2);
+        sortingModeUpdate(1);
     }
 
     sortDesc = (e) => {
         const{sortingModeUpdate} = this.props;
         e.preventDefault();
-        sortingModeUpdate(1);
+        sortingModeUpdate(2);
     }
 
     handleChange = (e) => {
