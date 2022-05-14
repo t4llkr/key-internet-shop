@@ -20,7 +20,13 @@ class App extends React.Component {
     url:'https://fakestoreapi.com/products',
     keyVal: 0,
     sortingMode: 0,
-    filter: ''
+    filter: '',
+    onBDown: false,
+    boughtItemsAmount: 0
+  }
+
+  itemsAmInc = () => {
+    this.setState({boughtItemsAmount: this.state.boughtItemsAmount+1})
   }
 
   switchPage = (param) => {
@@ -90,7 +96,8 @@ class App extends React.Component {
                 toOtherPage={this.switchPage}
                 sortingModeUpdate={this.sortingModeUpdate}
                 filter={this.state.filter}
-                filterUpdate={this.filterUpdate}/>
+                filterUpdate={this.filterUpdate}
+                boughtItems={this.state.boughtItemsAmount}/>
               <ShopMainPage
                 inCount={this.state.initialCount}
                 keyVal={this.state.keyVal}
@@ -98,7 +105,9 @@ class App extends React.Component {
                 itemsUpdate={this.boughtItemsUpdate}
                 keyUpdate={this.keyIDUpdate}
                 sortingMode={this.state.sortingMode}
-                shopItemsUpdate={this.shopItemsUpdate}/>
+                shopItemsUpdate={this.shopItemsUpdate}
+                itemsAmInc={this.itemsAmInc}
+                shopItems={this.state.shopItems}/>
             </>
           );
         case 3:

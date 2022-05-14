@@ -11,7 +11,8 @@ class LoginForm extends React.Component{
         super(props);
         this.state = {
             login: props.login,
-            password: props.password
+            password: props.password,
+            loginFailed: false
         }
     }
 
@@ -22,7 +23,7 @@ class LoginForm extends React.Component{
             toNext(2);
         }
         else {
-            this.setState({login: '', password: ''});
+            this.setState({login: '', password: '', loginFailed: true});
         }
     }
 
@@ -34,28 +35,33 @@ class LoginForm extends React.Component{
         this.setState({password: e.target.value});
     }
 
+    offFail = () => {
+        this.setState({loginFailed: false})
+    }
+
     render() {
         return (
-            <div className='login-page-bg'>
-                <div className='login-form'>
-                    <form>
-                        <h1>admin; 123</h1>
-                        <input className='login-input'
-                            name='login'
-                            type='text'
-                            value={this.state.login} onChange={this.handleLoginChange}
-                            placeholder='Логин'/><br></br>
-                        <input className='login-input'
-                            name='password'
-                            type='password'
-                            value={this.state.password} onChange={this.handlePasswordChange}
-                            placeholder='Пароль'/><br></br>
-                        <button className='login-button'
-                            onClick={this.handleClick}>
-                                Войти
-                        </button>
-                    </form>
-                </div>
+            <div className='login-form'>
+                <form>
+                    <h1>admin; 123</h1>
+                    <input className='login-input'
+                        onMouseDown={this.offFail}
+                        name='login'
+                        type='text'
+                        value={this.state.login} onChange={this.handleLoginChange}
+                        placeholder='Логин'/><br></br>
+                    <input className='login-input'
+                        onMouseDown={this.offFail}
+                        name='password'
+                        type='password'
+                        value={this.state.password} onChange={this.handlePasswordChange}
+                        placeholder='Пароль'/><br></br>
+                    <div><strong>{this.state.loginFailed? 'Неверный логин или пароль!' : '   '}</strong></div>
+                    <button className='login-button'
+                        onClick={this.handleClick}>
+                            Войти
+                    </button>
+                </form>
             </div>
         );
     }

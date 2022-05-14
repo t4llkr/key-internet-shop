@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import Popup from 'reactjs-popup';
 import { SpinnerDotted } from 'spinners-react';
 
-const url = 'https://fakestoreapi.com/products';
-//const url = 'localhost:3001/products';
+//const url = 'https://fakestoreapi.com/products';
+const url = 'http://localhost:3001/products';
 const imgalt = 'https://i.imgur.com/H9eDDyd.png';
 
 class ShopMainPage extends React.Component{
@@ -16,7 +16,7 @@ class ShopMainPage extends React.Component{
         this.state = {
           minValue: 0,
           maxValue: 4,
-          shopItems: [],
+          shopItems: props.shopItems,
           error: '',
           boughtItems: props.boughtItems,
           keyVal: props.keyVal,
@@ -63,10 +63,6 @@ class ShopMainPage extends React.Component{
                 error: 'Ошибка стоп нольнольноль'
             })
         }
-
-        this.setState ( {
-            shopItems
-        })
     }
 
     buyItem = (e) => {
@@ -96,7 +92,7 @@ class ShopMainPage extends React.Component{
 
     render() {
         const {error, shopItems, boughtItems, keyVal, showAlert} = this.state;
-        let {inCount, itemsUpdate, keyUpdate} = this.props;
+        let {inCount, itemsUpdate, keyUpdate, itemsAmInc} = this.props;
 
         return (
         <div className='shop-main'>
@@ -132,9 +128,10 @@ class ShopMainPage extends React.Component{
                             <img src={item.image} alt={imgalt} width='60%'/>
                             <div className='item-name'>{item.title}</div>
                             <div className='item-price'>{item.price}$</div>
-                            <Counter onMouseOver={this.onBDown}
-                                onMouseOut={this.onBOut}
-                                initialCount={inCount}/>
+                            <Counter initialCount={inCount}
+                            onBDown={this.onBDown}
+                            onBOut={this.onBOut}
+                            />
                             <button onMouseOver={this.onBDown}
                                 onMouseOut={this.onBOut}
                                 className='item-buy-button' onClick={() => {
@@ -143,6 +140,7 @@ class ShopMainPage extends React.Component{
                                     this.setState({boughtItems:bCopy, keyVal: keyVal+1, showAlert:true});
                                     itemsUpdate(bCopy);
                                     keyUpdate(keyVal+1);
+                                    itemsAmInc();
                                     }
                                 }>Добавить в корзину</button>
                             

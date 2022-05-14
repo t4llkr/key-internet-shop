@@ -5,7 +5,7 @@ class ShopOptions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            filter: props.filter
+            boughtItems: props.boughtItems
         }
     }
 
@@ -47,7 +47,7 @@ class ShopOptions extends React.Component {
     }
 
     render() {
-
+        let {boughtItems} = this.state;
         return(
             <div className='shop-menu'>
                 <div className='shop-options'>
@@ -66,7 +66,7 @@ class ShopOptions extends React.Component {
                 </div>
                 <div className='prof-bpanel'>
                     <button className='p-b' onClick={this.goToProfile}>Профиль</button>
-                    <button className='p-b' onClick={this.goToCart}>Корзина</button>
+                    <button className='p-b' onClick={this.goToCart}>Корзина ({boughtItems})</button>
                     <button className='p-b' onClick={this.goToLogin}>Выйти</button>
                 </div>
             </div>
@@ -78,7 +78,8 @@ ShopOptions.propTypes = {
     toOtherPage: PropTypes.func,
     sortingModeUpdate: PropTypes.func,
     filter: PropTypes.string,
-    filterUpdate: PropTypes.func
+    filterUpdate: PropTypes.func,
+    boughtItems: PropTypes.number
 }
 
 export default ShopOptions;
