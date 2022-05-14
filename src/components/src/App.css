@@ -1,0 +1,227 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.profile-screen {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+.navigator {
+  background-color: #b3c7ac;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.nav-buttons {
+  background-color: #54b12a;
+  font-size: 30pt;
+  margin: 25px;
+}
+
+.dashboard {
+  background-color: #ffe2b2;
+  flex: 3;
+}
+
+.dashboard-button {
+  font-size: 20px;
+  margin:30px;
+  margin-right: 10px;
+}
+
+.dash-bpanel {
+  flex: 1;
+  flex-direction: row;
+}
+
+.dash-tpanel {
+  flex: 5;
+  flex-direction: row;
+}
+
+.dashboard-text {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 30vh;
+}
+
+.login-page-bg {
+  background: linear-gradient(135deg, rgba(212,228,239,1) 0%, rgba(134,174,204,1) 44%, rgba(134,174,204,1) 100%);
+}
+
+.login-form {
+  padding: 30px;
+  background: #ddd;
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  justify-content: center;
+}
+
+.login-input {
+  font-size: 20px;
+  margin: 5px;
+}
+
+.login-button {
+  padding: 5%;
+  font-size: 20px;
+  background-color: #60fc18;
+  margin-top: 10px;
+}
+
+.item-block {
+  flex: none;
+  margin: 8px 4px;
+  padding: 4px;
+  width: 40vh;
+  height: 70vh;
+  background-color: #b3c7ac;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.item-block:hover {
+  background-color: #9cad94;
+}
+
+.counter {
+  display: inline-block;
+}
+
+.counter-value {
+  padding: 5px;
+  font-weight:bold;
+}
+
+.item-name {
+  font-size: medium;
+  font-style: italic;
+}
+
+.item-price {
+  font-size: large;
+  font-weight: bolder;
+}
+
+.item-buy-button {
+  position: relative;
+  bottom: 1px;
+  border-radius: 10px;
+  background-color: #96cc7d;
+  cursor: pointer;
+}
+
+.item-buy-button:hover {
+  background-color: #7fe94e;
+}
+
+.shop-menu {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #f3f3f3;
+}
+
+.shop-main {
+  flex: 8;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.shop-options {
+  flex:8;
+  flex-direction: column;
+}
+
+.prof-bpanel {
+  flex:2;
+}
+
+.p-b {
+  margin: 5px;
+  background-color: #ced6ca;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.p-b:hover {
+  background-color: #e6f0e2;
+}
+
+.cart-page {
+  justify-content: center;
+}
+
+.pag-marg {
+  margin: 10px;
+}
+
+.spinner-to-center {
+  margin: 30vh;
+}
+
+.alert-form {
+  padding: 5px;
+  background: #ddd;
+  position: fixed; right:2%;
+  border-radius: 5px;
+  cursor:pointer;
+}
+
+.alert-form:hover {
+  background-color: #bbb;
+}
+
+.alert-text {
+  text-align: right;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.modal-bg {
+  width: 1000vh;
+  height: 100vh;
+  background-color: #555;
+  opacity: 40%;
+}
