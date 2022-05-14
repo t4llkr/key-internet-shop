@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import LoginForm from './components/LoginForm';
 import Navigator from './components/Navigator';
@@ -16,6 +16,7 @@ class App extends React.Component {
     initialCount: 1,
     boughtItems: [],
     shopItems: [],
+    shopItemsReserve: [],
     url:'https://fakestoreapi.com/products',
     keyVal: 0,
     sortingMode: 0,
@@ -39,7 +40,7 @@ class App extends React.Component {
   }
 
   shopItemsUpdate = (array) => {
-    this.setState({shopItems: array})
+    this.setState({shopItems: array, shopItemsReserve: array})
   }
 
   sortingModeUpdate = (val) => {
@@ -51,10 +52,12 @@ class App extends React.Component {
   }
 
   filterUpdate = (str) => {
-    this.setState({filter: str});
-    this.state.shopItems.filter(str).map((item) => {
-      return 
+    const {shopItemsReserve} = this.state;
+    this.setState({filter: str, shopItems: shopItemsReserve});
+    var filteredItems = this.state.shopItems.filter (function (item) {
+      return item.title.includes(str);
     });
+    this.setState({shopItems: filteredItems})
   }
 
   render() {
