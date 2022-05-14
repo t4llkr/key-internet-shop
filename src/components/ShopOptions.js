@@ -22,13 +22,13 @@ class ShopOptions extends React.Component {
     }
 
     handleChange = (e) => {
-        const{filterUpdate} = this.props;
         this.setState({filter: e.target.value})
-        filterUpdate(e.target.value);
     }
 
     searchProcess = (e) => {
+        const{filterUpdate} = this.props;
         e.preventDefault();
+        filterUpdate(this.state.filter);
     }
 
     goToProfile = () => {
@@ -60,8 +60,8 @@ class ShopOptions extends React.Component {
                         <button className='p-b' onClick={this.searchProcess}>Найти</button>
                     </form>
                     <div>
-                        <button className='p-b' onClick={this.sortAsc}>По возрастанию</button>
-                        <button className='p-b' onClick={this.sortDesc}>По убыванию</button>
+                        <button className='p-b' onClick={this.sortAsc}>По возрастанию цены</button>
+                        <button className='p-b' onClick={this.sortDesc}>По убыванию цены</button>
                     </div>
                 </div>
                 <div className='prof-bpanel'>

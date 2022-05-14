@@ -28,6 +28,7 @@ export default class cartPage extends React.Component {
 
         return (
             <div className='cart-page'>
+                <h1>Добавлено товаров: {boughtItems.length}</h1>
                 <Table columns={tableColumns} dataSource={boughtItems}/>
                 <button className='dashboard-button'>Оформить заказ</button>
                 <button className='dashboard-button'onClick={this.turnBack}>Вернуться в магазин</button>

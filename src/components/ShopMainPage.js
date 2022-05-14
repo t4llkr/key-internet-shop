@@ -3,6 +3,8 @@ import { Space, Pagination } from 'antd';
 import 'antd/dist/antd.min.css';
 import Counter from './Counter';
 import PropTypes from 'prop-types';
+import Popup from 'reactjs-popup';
+import { SpinnerDotted } from 'spinners-react';
 
 const url = 'https://fakestoreapi.com/products';
 //const url = 'localhost:3001/products';
@@ -18,7 +20,17 @@ class ShopMainPage extends React.Component{
           error: '',
           boughtItems: props.boughtItems,
           keyVal: props.keyVal,
-          sortingMode: props.sortingMode
+          sortingMode: props.sortingMode,
+          isLoaded: false,
+          showAlert: false,
+          showModal: false,
+          bDown: false,
+          image: '',
+          title: '',
+          price: '',
+          description: '',
+          category: '',
+          count: ''
         };
       }
 
@@ -43,7 +55,7 @@ class ShopMainPage extends React.Component{
             const {shopItemsUpdate} = this.props;
             const result = await fetch(url);
             shopItems = await result.json();
-            this.setState({shopItems: shopItems})
+            this.setState({shopItems: shopItems, isLoaded: true})
             shopItemsUpdate(shopItems);
         }
         catch (err) {
@@ -64,8 +76,26 @@ class ShopMainPage extends React.Component{
         bCopy.push()
     }
 
+    hideAlert = () => {
+        this.setState({showAlert: false})
+    }
+
+    showModal = () => {
+        if (this.state.bDown === false) {this.setState({showModal:true})}
+    }
+    hideModal = () => {
+        this.setState({showModal: false})
+    }
+
+    onBDown = () => {
+        this.setState({bDown: true})
+    }
+    onBOut = () => {
+        this.setState({bDown: false})
+    }
+
     render() {
-        const {error, shopItems, boughtItems, keyVal} = this.state;
+        const {error, shopItems, boughtItems, keyVal, showAlert} = this.state;
         let {inCount, itemsUpdate, keyUpdate} = this.props;
 
         return (
@@ -83,30 +113,67 @@ class ShopMainPage extends React.Component{
                 shopItems &&
                 shopItems.length > 0 &&
                 shopItems.slice(this.state.minValue, this.state.maxValue).map((item) => (
-                    <div 
-                      align='center'
-                      key={item.id}
-                      className='item-block'
-                      onClick={this.openModal}>
-                        <img src={item.image} alt={imgalt} width='60%'/>
-                        <div className='item-name'>{item.title}</div>
-                        <div className='item-price'>{item.price}$</div>
-                        <Counter initialCount={inCount}/>
-                        <button className='item-buy-button' onClick={() => {
-                                let bCopy = boughtItems.slice();
-                                bCopy.push({key: keyVal, id: item.id, title: item.title, price: item.price, amount: inCount});
-                                this.setState({boughtItems:bCopy, keyVal: keyVal+1});
-                                itemsUpdate(bCopy);
-                                keyUpdate(keyVal+1);
-                                }
+                    <>
+                        <div 
+                        key={item.id}
+                        className='item-block'
+                        onClick={() => {
+                                this.showModal();
+                                this.setState({
+                                    image: item.image,
+                                    title: item.title,
+                                    price: item.price,
+                                    description: item.description,
+                                    category: item.category,
+                                    count: item.rating.count
+                                })
                             }
-                        >Добавить в корзину</button>
-                    </div>
+                        }>
+                            <img src={item.image} alt={imgalt} width='60%'/>
+                            <div className='item-name'>{item.title}</div>
+                            <div className='item-price'>{item.price}$</div>
+                            <Counter onMouseOver={this.onBDown}
+                                onMouseOut={this.onBOut}
+                                initialCount={inCount}/>
+                            <button onMouseOver={this.onBDown}
+                                onMouseOut={this.onBOut}
+                                className='item-buy-button' onClick={() => {
+                                    let bCopy = boughtItems.slice();
+                                    bCopy.push({key: keyVal, id: item.id, title: item.title, price: item.price, amount: inCount});
+                                    this.setState({boughtItems:bCopy, keyVal: keyVal+1, showAlert:true});
+                                    itemsUpdate(bCopy);
+                                    keyUpdate(keyVal+1);
+                                    }
+                                }>Добавить в корзину</button>
+                            
+                        </div>
+                    </>
                 ))
                 }
                 <h2>{error}</h2>
             </Space>
-            
+            <Popup open={this.state.showModal} close={this.state.showModal} onClose={this.hideModal} modal>
+                <div className='modal-bg' onClick={this.hideModal}></div>
+                <div className='login-form'>
+                    <img className='modal-pic' src={this.state.image} alt={imgalt} width='40%'/>
+                    <div className='item-name'>{this.state.title}</div>
+                    <div className='item-price'>{this.state.price}$</div>
+                    <div><strong>Описание:</strong> {this.state.description}</div>
+                    <div><strong>Категория:</strong> {this.state.category}</div>
+                    <div><strong>В наличии:</strong> {this.state.count} шт.</div>
+                </div>
+            </Popup>
+            <SpinnerDotted
+                size='5%'
+                className='spinner-to-center'
+                enabled={!this.state.isLoaded} />
+                <div className='alert-form'>
+                    <div 
+                        onClick={this.hideAlert}
+                        className='alert-text'>
+                            {showAlert ? 'Товар добавлен в корзину!' : ''}
+                    </div>
+                </div>
         </div>
         )
     }
