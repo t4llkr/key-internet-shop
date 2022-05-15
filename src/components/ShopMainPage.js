@@ -93,7 +93,8 @@ class ShopMainPage extends React.Component{
     }
 
     submitCAmount = (n) => {
-        this.setState({counterAmount: n})
+        if (this.state.isBought === false)
+            this.setState({counterAmount: n});
     }
 
     switchBought = (bool) => {

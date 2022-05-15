@@ -14,7 +14,8 @@ export default class cartPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          boughtItems: props.cartItems
+          boughtItems: props.cartItems,
+          boughtItemsR: []
         };
       }
 
@@ -23,13 +24,31 @@ export default class cartPage extends React.Component {
         returnToShop(2);
     }
 
+    bUpd = () => {
+        const{bItemsUpdate} = this.props;
+        bItemsUpdate(this.state.boughtItemsR);
+    }
+
     render() {
         const {boughtItems} = this.state;
+        const {itemsAmDec} = this.props;
 
         return (
             <div className='cart-page'>
                 <h1>Добавлено товаров: {boughtItems.length}</h1>
-                <Table columns={tableColumns} dataSource={boughtItems}/>
+                <Table 
+                onRow={(record, rowIndex) => {
+                    return {
+                      onClick: event => {
+                        this.setState ({
+                            boughtItems: [...boughtItems.slice(0, rowIndex), ...boughtItems.slice(rowIndex+1)],
+                            boughtItemsR: [...boughtItems.slice(0, rowIndex), ...boughtItems.slice(rowIndex+1)]
+                        });
+                        itemsAmDec();
+                      }
+                    };
+                  }}
+                columns={tableColumns} dataSource={boughtItems}/>
                 <button className='dashboard-button'>Оформить заказ</button>
                 <button className='dashboard-button'onClick={this.turnBack}>Вернуться в магазин</button>
             </div>

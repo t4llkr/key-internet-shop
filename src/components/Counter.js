@@ -23,7 +23,7 @@ export default class Counter extends React.Component {
 
         return(
             <div>
-                <button onMouseOver={onBDown} onMouseOut={onBOut} onClick={this.handleClickMinus}className='counter'>-</button>
+                <button onMouseOver={onBDown} onMouseOut={onBOut} onMouseDown={this.handleClickMinus}className='counter'>-</button>
                 <div className='counter counter-value'>{counter}</div>
                 <button onMouseOver={onBDown} onMouseOut={onBOut} onClick={this.handleClickPlus}className='counter'>+</button>
             </div>

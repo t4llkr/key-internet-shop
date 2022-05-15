@@ -29,6 +29,9 @@ class App extends React.Component {
   itemsAmInc = () => {
     this.setState({boughtItemsAmount: this.state.boughtItemsAmount+1})
   }
+  itemsAmDec = () => {
+    this.setState({boughtItemsAmount: this.state.boughtItemsAmount-1})
+  }
 
   switchPage = (param) => {
     this.setState({pageID: param})
@@ -53,8 +56,8 @@ class App extends React.Component {
   sortingModeUpdate = (val) => {
     this.setState({sortingMode: val})
     this.state.sh.sort(function (a, b) {
-      if (val === 1) {return a.price > b.price;}
-      if (val === 2) {return a.price < b.price;}
+      if (val === 1) {return a.price - b.price;}
+      if (val === 2) {return b.price - a.price;}
   })
   }
 
@@ -121,7 +124,9 @@ class App extends React.Component {
           return (
             <CartPage
               returnToShop={this.switchPage}
-              cartItems={this.state.boughtItems}/>
+              cartItems={this.state.boughtItems}
+              itemsAmDec={this.itemsAmDec}
+              bItemsUpdate={this.boughtItemsUpdate}/>
           );
         default:
           return <h1>404</h1>
