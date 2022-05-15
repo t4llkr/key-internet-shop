@@ -47,12 +47,12 @@ class App extends React.Component {
   }
 
   shopItemsUpdate = (array) => {
-    this.setState({shopItems: array, shopItemsReserve: array})
+    this.setState({shopItems: array, shopItemsReserve: array, sh:array})
   }
 
   sortingModeUpdate = (val) => {
     this.setState({sortingMode: val})
-    this.state.shopItems.sort(function (a, b) {
+    this.state.sh.sort(function (a, b) {
       if (val === 1) {return a.price > b.price;}
       if (val === 2) {return a.price < b.price;}
   })
@@ -60,7 +60,7 @@ class App extends React.Component {
 
   filterUpdate = (str) => {
     if (str==='' || str===undefined) {
-      this.setState({shopItems: this.state.shopItemsReserve})
+      this.setState({sh: this.state.shopItemsReserve})
     }
     else {
       this.setState({shopItems: this.state.shopItemsReserve});
