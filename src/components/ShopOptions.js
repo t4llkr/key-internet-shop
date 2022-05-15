@@ -21,14 +21,11 @@ class ShopOptions extends React.Component {
         sortingModeUpdate(2);
     }
 
-    handleChange = (e) => {
-        this.setState({filter: e.target.value})
-    }
-
     searchProcess = (e) => {
+        this.setState({filter: e.target.value})
         const{filterUpdate} = this.props;
         e.preventDefault();
-        filterUpdate(this.state.filter);
+        filterUpdate(e.target.value);
     }
 
     goToProfile = () => {
@@ -52,12 +49,11 @@ class ShopOptions extends React.Component {
             <div className='shop-menu'>
                 <div className='shop-options'>
                     <form>
-                        <input
-                            onChange={this.handleChange}
+                        <input className='p-b'
+                            onChange={this.searchProcess}
                             name='search'
                             type='text'
                             placeholder='Поиск'/>
-                        <button className='p-b' onClick={this.searchProcess}>Найти</button>
                     </form>
                     <div>
                         <button className='p-b' onClick={this.sortAsc}>От самого дешёвого</button>

@@ -30,7 +30,9 @@ class ShopMainPage extends React.Component{
           price: '',
           description: '',
           category: '',
-          count: ''
+          count: '',
+          counterAmount: 1,
+          isBought: false
         };
       }
 
@@ -90,9 +92,17 @@ class ShopMainPage extends React.Component{
         this.setState({bDown: false})
     }
 
+    submitCAmount = (n) => {
+        this.setState({counterAmount: n})
+    }
+
+    switchBought = (bool) => {
+        this.setState({isBought: bool})
+    }
+
     render() {
-        const {error, boughtItems, keyVal, showAlert} = this.state;
-        let {inCount, itemsUpdate, keyUpdate, itemsAmInc, shopItems, sh} = this.props;
+        const {error, boughtItems, keyVal, showAlert, counterAmount} = this.state;
+        let {inCount, itemsUpdate, keyUpdate, itemsAmInc, sh} = this.props;
 
         return (
         <div className='shop-main'>
@@ -131,16 +141,20 @@ class ShopMainPage extends React.Component{
                             <Counter initialCount={inCount}
                             onBDown={this.onBDown}
                             onBOut={this.onBOut}
+                            submitCAmount={this.submitCAmount}
+                            switchBought={this.switchBought}
+                            counterAmount={this.state.counterAmount}
                             />
                             <button onMouseOver={this.onBDown}
                                 onMouseOut={this.onBOut}
                                 className='item-buy-button' onClick={() => {
                                     let bCopy = boughtItems.slice();
-                                    bCopy.push({key: keyVal, id: item.id, title: item.title, price: item.price, amount: inCount});
+                                    bCopy.push({key: keyVal, id: item.id, title: item.title, price: item.price, amount: counterAmount});
                                     this.setState({boughtItems:bCopy, keyVal: keyVal+1, showAlert:true});
                                     itemsUpdate(bCopy);
                                     keyUpdate(keyVal+1);
                                     itemsAmInc();
+                                    this.switchBought(true);
                                     }
                                 }>Добавить в корзину</button>
                             

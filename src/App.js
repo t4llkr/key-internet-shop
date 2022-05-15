@@ -70,7 +70,6 @@ class App extends React.Component {
       
       this.setState({sh: filteredItems})
     }
-    console.log(filteredItems);
   }
 
   render() {
