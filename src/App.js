@@ -17,6 +17,7 @@ class App extends React.Component {
     boughtItems: [],
     shopItems: [],
     shopItemsReserve: [],
+    sh: [],
     url:'https://fakestoreapi.com/products',
     keyVal: 0,
     sortingMode: 0,
@@ -46,24 +47,30 @@ class App extends React.Component {
   }
 
   shopItemsUpdate = (array) => {
-    this.setState({shopItems: array, shopItemsReserve: array})
+    this.setState({shopItems: array, shopItemsReserve: array, sh:array})
   }
 
   sortingModeUpdate = (val) => {
     this.setState({sortingMode: val})
-    this.state.shopItems.sort(function (a, b) {
+    this.state.sh.sort(function (a, b) {
       if (val === 1) {return a.price > b.price;}
       if (val === 2) {return a.price < b.price;}
   })
   }
 
   filterUpdate = (str) => {
-    const {shopItemsReserve} = this.state;
-    this.setState({filter: str, shopItems: shopItemsReserve});
-    var filteredItems = this.state.shopItems.filter (function (item) {
-      return item.title.includes(str);
-    });
-    this.setState({shopItems: filteredItems})
+    if (str==='' || str===undefined) {
+      this.setState({sh: this.state.shopItemsReserve})
+    }
+    else {
+      this.setState({shopItems: this.state.shopItemsReserve});
+      var filteredItems = this.state.shopItems.filter (function (item) {
+        return item.title.toLowerCase().includes(str.toLowerCase());
+      });
+      
+      this.setState({sh: filteredItems})
+    }
+    console.log(filteredItems);
   }
 
   render() {
@@ -107,7 +114,8 @@ class App extends React.Component {
                 sortingMode={this.state.sortingMode}
                 shopItemsUpdate={this.shopItemsUpdate}
                 itemsAmInc={this.itemsAmInc}
-                shopItems={this.state.shopItems}/>
+                shopItems={this.state.shopItems}
+                sh={this.state.sh}/>
             </>
           );
         case 3:

@@ -91,8 +91,8 @@ class ShopMainPage extends React.Component{
     }
 
     render() {
-        const {error, shopItems, boughtItems, keyVal, showAlert} = this.state;
-        let {inCount, itemsUpdate, keyUpdate, itemsAmInc} = this.props;
+        const {error, boughtItems, keyVal, showAlert} = this.state;
+        let {inCount, itemsUpdate, keyUpdate, itemsAmInc, shopItems, sh} = this.props;
 
         return (
         <div className='shop-main'>
@@ -101,14 +101,14 @@ class ShopMainPage extends React.Component{
                     defaultCurrent={1}
                     defaultPageSize={4}
                     onChange={this.handleChange}
-                    total={20}
+                    total={sh.length}
                 />
             </div>
             <Space size={[8, 16]} wrap>{
                 //shopItems.map(item => (
-                shopItems &&
-                shopItems.length > 0 &&
-                shopItems.slice(this.state.minValue, this.state.maxValue).map((item) => (
+                sh &&
+                sh.length > 0 &&
+                sh.slice(this.state.minValue, this.state.maxValue).map((item) => (
                     <>
                         <div 
                         key={item.id}

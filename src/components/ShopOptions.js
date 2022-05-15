@@ -47,7 +47,7 @@ class ShopOptions extends React.Component {
     }
 
     render() {
-        let {boughtItems} = this.state;
+        const {boughtItems} = this.props;
         return(
             <div className='shop-menu'>
                 <div className='shop-options'>
@@ -60,8 +60,8 @@ class ShopOptions extends React.Component {
                         <button className='p-b' onClick={this.searchProcess}>Найти</button>
                     </form>
                     <div>
-                        <button className='p-b' onClick={this.sortAsc}>По возрастанию цены</button>
-                        <button className='p-b' onClick={this.sortDesc}>По убыванию цены</button>
+                        <button className='p-b' onClick={this.sortAsc}>От самого дешёвого</button>
+                        <button className='p-b' onClick={this.sortDesc}>От самого дорогого</button>
                     </div>
                 </div>
                 <div className='prof-bpanel'>
